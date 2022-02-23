@@ -1,0 +1,119 @@
+<!DOCTYPE html >
+<!--<html manifest="appcache.manifest">-->
+<!--manifest="appcache.manifest"-->
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Світло</title>
+  <link href="bootstrap.css" rel="stylesheet">
+  <script src="jquery.js"></script>
+  <style>
+      body {
+          padding: 10px;
+      }
+
+      img {
+          max-width: 100%;
+      }
+
+      .room table {
+      }
+
+      .room table tr td {
+          text-align: center;
+      }
+
+  </style>
+</head>
+
+<body>
+
+<div class="room">
+  <table border="1" id="ligth">
+    <tr>
+      <td data-target="http://192.168.1.54/password/?pg=4&n=2">
+        <button data-target="http://svet.localhome.in.ua/pwm?channel=15&value=1100">Закрити</button>
+        <button data-target="http://svet.localhome.in.ua/pwm?channel=15&value=200">відкрити</button>
+      </td>
+      <td colspan="3">
+        <button data-target="balokn-close">Закрити</button>
+        <button data-target="balokn-open">відкрити</button>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td height="60" colspan="2" data-target="http://192.168.1.54/password/?pg=4&n=2">балкон</td>
+      <td height="60" colspan="2" data-target="http://192.168.1.54/password/?pg=4&n=1">сервер</td>
+    </tr>
+    <tr>
+      <td rowspan="4" width="178" data-target="http://192.168.1.13/toggle">кімната</td>
+      <td colspan="3" height="116" data-target="http://192.168.1.54/password/?pg=4&n=3">кухня</td>
+    </tr>
+    <tr>
+      <td rowspan="3" width="60" height="164">коридор</td>
+      <td rowspan="2" colspan="2" width="80" height="95" data-target="http://192.168.1.54/password/?pg=4&n=4">ванна</td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+      <td height="60" colspan="2">коморка</td>
+    </tr>
+  </table>
+</div>
+
+
+<script>
+
+
+    function action(url) {
+        if (url) {
+            $.ajax({
+                url: url,
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    }
+
+
+    $(function () {
+        $('#ligth').click(function (event) {
+
+            var url = $(event.target).attr('data-target');
+
+            if(url == 'balokn-open'){
+                action('http://svet.localhome.in.ua/pwm?channel=15&value=200');
+                action('http://svet.localhome.in.ua/pwm?channel=14&value=200');
+                action('http://svet.localhome.in.ua/pwm?channel=13&value=200');
+                action('http://svet.localhome.in.ua/pwm?channel=12&value=200');
+            }else if(url == 'balokn-close'){
+                action('http://svet.localhome.in.ua/pwm?channel=15&value=1100');
+                action('http://svet.localhome.in.ua/pwm?channel=14&value=1100');
+                action('http://svet.localhome.in.ua/pwm?channel=13&value=1100');
+                action('http://svet.localhome.in.ua/pwm?channel=12&value=1100');
+            }else if(url == 'balokn-close'){
+
+            }else if(url == 'balokn-close'){
+
+            }else{
+                action(url);
+            }
+
+
+
+        });
+        document.addEventListener('touchmove', function (e) {
+            e.preventDefault();
+        }, false);
+
+    });
+</script>
+
+</body>
+</html>
